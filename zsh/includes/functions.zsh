@@ -49,7 +49,7 @@ function install_dotfiles() {
 
 	echo "Cloning dotfiles to ${DOTDIR} from ${REPO}..."
 	cd $BASE
-	git clone --depth 2 ${REPO} .wcvd-dotfiles
+	git clone --recursive ${REPO} .wcvd-dotfiles
 	cd -
 
 	ZDOTDIR=${DOTDIR}/zsh
