@@ -2,7 +2,7 @@
 # ------------------
 unalias fzf 2> /dev/null
 fzf() {
-  /usr/bin/ruby --disable-gems $DOTDIR/zsh/fzf/fzf "$@"
+  /usr/bin/ruby --disable-gems $DOTDIR/zsh/fzf/fzf "$@" || /usr/bin/ruby $DOTDIR/zsh/fzf/fzf "$@"
 }
 export -f fzf > /dev/null
 

@@ -73,7 +73,7 @@ function update_dotfiles(){
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull
-    git submodule update --init --recursive
+    git submodule update --init 
 
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
