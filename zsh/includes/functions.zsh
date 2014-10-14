@@ -74,6 +74,7 @@ function update_dotfiles(){
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull
+    git submodule update --recursive
     git checkout $CURRENT
     git stash pop
 
