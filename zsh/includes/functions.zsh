@@ -84,6 +84,7 @@ function update_dotfiles(){
     	source $DOTDIR/zsh/.zshrc
     else
     	ZDOTDIR="${DOTDIR}/zsh/"
+    	export ZDOTDIR
     fi
 
     # return to previous directory
@@ -108,6 +109,7 @@ function wdeploy() {
         	update_dotfiles
         else
         	ZDOTDIR="${DOTDIR}/zsh/"
+        	export ZDOTDIR
         fi
 	else
 		echo "${DOTDIR} does not exist"
