@@ -39,7 +39,7 @@ source ${DOTDIR}/zsh/antigen/antigen.zsh
 
 # load oh-my-zsh bundles
 antigen use oh-my-zsh
-antigen theme steeef  # set the prompt theme
+antigen theme wvandaal/steeef-theme steeef # set the prompt theme
 
 # keep plugins in order to avoid conflicts
 antigen bundles <<-Bundles
