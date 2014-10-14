@@ -64,19 +64,16 @@ function install_dotfiles() {
 function update_dotfiles(){
 
 	local REPO='https://github.com/wvandaal/dotfiles' 
-	local CURRENT=$(git rev-parse --abbrev-ref HEAD)
 	local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
 		echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 	# go to $DOTDIR, stash any git changes, checkout master, and pull
     cd $DOTDIR
-    git stash
+    git reset --hard HEAD >/dev/null 2>&1
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull
-    git submodule update --recursive
-    git checkout $CURRENT
-    git stash pop
+    git submodule update --init --recursive
 
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
