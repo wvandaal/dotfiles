@@ -121,9 +121,20 @@ function wdeploy() {
 # environment
 function wssh() {
 
-	local deploy=$(declare -f wdeploy)
+	local deploy="$(declare -f wdeploy)"
+	local install="$(declare -f install_dotfiles)"
+	local update="$(declare -f update_dotfiles)"
+	local getzsh="$(declare -f setup_zsh)"
+	local homebrew="$(declare -f install_homebrew)"
 
-
+	ssh -A -t "$@" \
+		"${homebrew} ;
+		${getzsh} ;
+		${update} ;
+		${install} ;
+		${deploy} ; 
+		wdeploy;
+		$(which zsh) -i;"
 }
 
 
@@ -135,7 +146,7 @@ function v_ssh() {
 	local getzsh="$(declare -f setup_zsh)"
 	local homebrew="$(declare -f install_homebrew)"
 
-	vagrant ssh -- -A -t "$@" \
+	vagrant ssh -- -l root -A -t "$@" \
 		"${homebrew} ;
 		${getzsh} ;
 		${update} ;
