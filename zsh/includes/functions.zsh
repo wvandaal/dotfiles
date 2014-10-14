@@ -63,30 +63,36 @@ function install_dotfiles() {
 # repository
 function update_dotfiles(){
 
+    local CURRENT=$(git rev-parse --abbrev-ref HEAD)
 	local REPO='https://github.com/wvandaal/dotfiles' 
 	local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
 		echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 	# go to $DOTDIR, stash any git changes, checkout master, and pull
     cd $DOTDIR
+    git stash
     git reset --hard HEAD >/dev/null 2>&1
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull
     git submodule init
-    git submodule update 
+    git submodule update
 
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
-    if [[ $($0) =~ zsh ]]; then
+    if [[ $(ps -p$$ -ocommand=) =~ zsh ]]; then
     	source $DOTDIR/zsh/.zshrc
     else
     	ZDOTDIR="${DOTDIR}/zsh/"
     	export ZDOTDIR
     fi
 
-    # return to home dir
-    cd
+    # return to initial branch and pop the stash
+    git checkout $CURRENT
+    git stash pop
+
+    # return to previous dir
+    cd -
 }
 
 
@@ -102,7 +108,7 @@ function wdeploy() {
 	if [[ -d $DOTDIR ]]; then
         echo "${DOTDIR} already exists"
         printf "Update .wcvd-dotfiles from remote? "
-        read RESP 
+        read RESP
         if [[ $RESP =~ ^[Yy]$ ]]; then
         	update_dotfiles
         else
@@ -146,6 +152,7 @@ function v_ssh() {
 	local getzsh="$(declare -f setup_zsh)"
 	local homebrew="$(declare -f install_homebrew)"
 
+    # login as root user and define all necessary functions for deploying dotfiles
 	vagrant ssh -- -l root -A -t "$@" \
 		"${homebrew} ;
 		${getzsh} ;
