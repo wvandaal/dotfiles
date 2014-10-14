@@ -6,10 +6,16 @@
 function setup_zsh() {
 	# if zsh is not installed
 	if ! [[ -f $(which zsh) ]]; then
+
+		echo "Zsh not found"
+		echo "Attempting to install Zsh..."
 		
 		# if apt-get exists, use to install zsh
 		if [[ -f $(which apt-get) ]]; then
 			sudo apt-get install zsh
+
+		elif [[ -f $(which yum) ]]; then
+			sudo yum install zsh
 
 		# if homebrew exists, use it to install zsh
 		elif [[ -f $(which brew) ]]; then
@@ -21,10 +27,8 @@ function setup_zsh() {
 			install_homebrew
 			sudo brew install zsh
 		else
-			echo "Error: apt-get or homebrew required to install Zsh"
+			echo "Error: apt-get, yum, or homebrew required to install Zsh"
 		fi
-	else 
-		echo "Zsh already installed"
 	fi
 }
 
@@ -47,6 +51,9 @@ function install_dotfiles() {
 	cd $BASE
 	git clone --depth 1 ${REPO} .wcvd-dotfiles
 	cd -
+
+	ZDOTDIR=${DOTDIR}/zsh
+	export ZDOTDIR
 
 }
 
@@ -84,13 +91,20 @@ function update_dotfiles(){
 
 function wdeploy() {
 
+	local DOTDIR=$([[ $(hostname) == wvandaalen.local ]] && echo "$HOME/.wcvd-dotfiles" || 
+	    echo "/tmp/.wcvd-dotfiles")
+
 	setup_zsh
 	
 	# if the dotfiles directory exists, update from the remote
 	# else install from the remote
 	if [[ -d $DOTDIR ]]; then
         echo "${DOTDIR} already exists"
-		update_dotfiles
+        printf "Update .wcvd-dotfiles from remote? "
+        read RESP 
+        if [[ $RESP =~ ^[Yy]$ ]]; then
+        	update_dotfiles
+        fi
 	else
 		echo "${DOTDIR} does not exist"
 		install_dotfiles
@@ -105,5 +119,25 @@ function wssh() {
 
 	local deploy=$(declare -f wdeploy)
 
+
+}
+
+
+function v_ssh() {
+
+	local deploy="$(declare -f wdeploy)"
+	local install="$(declare -f install_dotfiles)"
+	local update="$(declare -f update_dotfiles)"
+	local getzsh="$(declare -f setup_zsh)"
+	local homebrew="$(declare -f install_homebrew)"
+
+	vagrant ssh -- -A -t "$@" \
+		"${homebrew} ;
+		${getzsh} ;
+		${update} ;
+		${install} ;
+		${deploy} ; 
+		wdeploy;
+		$(which zsh) -i;"
 
 }

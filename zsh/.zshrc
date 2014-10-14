@@ -1,5 +1,5 @@
 # Assign the DOTDIR path depending on hostname
-local DOTDIR=$([[ $(hostname) == wvandaalen.local ]] && echo "$HOME/.wcvd-dotfiles" || 
+local DOTDIR=$([[ $(hostname) == wvandaalen ]] && echo "$HOME/.wcvd-dotfiles" || 
     echo "/tmp/.wcvd-dotfiles")
 
 # Env settings
@@ -40,14 +40,15 @@ source ${DOTDIR}/zsh/antigen/antigen.zsh
 # load oh-my-zsh bundles
 antigen use oh-my-zsh
 antigen theme steeef  # set the prompt theme
+
+# keep plugins in order to avoid conflicts
 antigen bundles <<-Bundles
     
+    z
     git
     sublime
-    z
-    vi-mode
+    sharat87/zsh-vim-mode
     history-substring-search
-
     zsh-users/zsh-syntax-highlighting
 
     # tarruda/zsh-autosuggestions          # must be bundled last
