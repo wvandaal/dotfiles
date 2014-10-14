@@ -84,8 +84,8 @@ function update_dotfiles(){
     	export ZDOTDIR
     fi
 
-    # return to previous directory
-    cd -
+    # return to home dir
+    cd
 }
 
 
