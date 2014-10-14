@@ -52,11 +52,11 @@ function install_dotfiles() {
 	git clone ${REPO} .wcvd-dotfiles
 	cd .wcvd-dotfiles
 	git submodule update --init --recursive
-	cd
 
 	ZDOTDIR=${DOTDIR}/zsh
 	export ZDOTDIR
 
+	cd
 }
 
 # updates all dotfiles in the appropriate DOTDIR by pulling from the remote
@@ -73,7 +73,8 @@ function update_dotfiles(){
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull
-    git submodule update --init 
+    git submodule init
+    git submodule update 
 
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
