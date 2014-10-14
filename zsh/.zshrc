@@ -1,6 +1,6 @@
 # Assign the DOTDIR path depending on hostname
-local DOTDIR=$([[ $(hostname) == wvandaalen ]] && echo "$HOME/.wcvd-dotfiles" || 
-    echo "/tmp/.wcvd-dotfiles")
+local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
+    echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 # Env settings
 EDITOR=vim
