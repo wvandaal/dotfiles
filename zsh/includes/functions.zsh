@@ -51,7 +51,7 @@ function install_dotfiles() {
 
 	echo "Cloning dotfiles to ${DOTDIR} from ${REPO}..."
 	cd $BASE
-	git clone ${REPO} .wcvd-dotfiles --quiet
+	git clone ${REPO} .wcvd-dotfiles
 	cd .wcvd-dotfiles
 	git submodule update --init --recursive --quiet
 
@@ -80,7 +80,7 @@ function update_dotfiles(){
     git reset --hard HEAD >/dev/null 2>&1
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
-    git pull --quiet
+    git pull 
     git submodule init
     git submodule update
 
