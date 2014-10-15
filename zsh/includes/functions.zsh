@@ -103,6 +103,10 @@ function update_dotfiles(){
 
 
 function wdeploy() {
+    DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
+        echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
+
+    export DOTDIR
 
 	setup_zsh
 	
