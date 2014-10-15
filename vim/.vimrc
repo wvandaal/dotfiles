@@ -8,11 +8,19 @@ let &rtp .= ", " . $DOTDIR . "/vim/bundle/vundle, " . &rtp
 call vundle#begin($DOTDIR . "/vim/bundle")
 
 " Bundle up the various packages
-Plugin 'gmarik/vundle'				
-Plugin 'pangloss/vim-javascript'	" improved js highlighting and other options
-Plugin 'tomasr/molokai' 			" molokai color scheme
-Plugin 'Lokaltog/vim-easymotion'	" easymotion pattern matching
-Plugin 'scrooloose/nerdtree'		" directory tree traversal
+Plugin 'gmarik/vundle'			
+
+" improved js highlighting and other options	
+Plugin 'pangloss/vim-javascript'	
+
+" molokai color scheme
+Plugin 'tomasr/molokai' 			
+
+" easymotion pattern matching
+Plugin 'Lokaltog/vim-easymotion'	
+
+" directory tree traversal
+Plugin 'scrooloose/nerdtree'		
 
 " finish installing plugins	
 call vundle#end()      				" required for vundle
