@@ -49,12 +49,16 @@ function install_dotfiles() {
 
 	echo "Cloning dotfiles to ${DOTDIR} from ${REPO}..."
 	cd $BASE
-	git clone ${REPO} .wcvd-dotfiles
+	git clone ${REPO} .wcvd-dotfiles --quiet
 	cd .wcvd-dotfiles
-	git submodule update --init --recursive
+	git submodule update --init --recursive --quiet
 
 	ZDOTDIR=${DOTDIR}/zsh
 	export ZDOTDIR
+
+    # install all vim bundles
+    echo "Installing vim plugins..."
+    vim +PluginInstall +qall!
 
 	cd
 }
@@ -65,8 +69,6 @@ function update_dotfiles(){
 
     local CURRENT=$(git rev-parse --abbrev-ref HEAD)
 	local REPO='https://github.com/wvandaal/dotfiles' 
-	local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
-		echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 	# go to $DOTDIR, stash any git changes, checkout master, and pull
     cd $DOTDIR
@@ -74,7 +76,7 @@ function update_dotfiles(){
     git reset --hard HEAD >/dev/null 2>&1
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
-    git pull
+    git pull --quiet
     git submodule init
     git submodule update
 
@@ -91,15 +93,16 @@ function update_dotfiles(){
     git checkout $CURRENT
     git stash pop
 
+    # install all vim bundles
+    echo "Installing vim plugins..."
+    vim +PluginInstall +qall!
+
     # return to previous dir
     cd -
 }
 
 
 function wdeploy() {
-
-	local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
-		echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 	setup_zsh
 	
@@ -144,7 +147,7 @@ function wssh() {
 }
 
 
-function v_ssh() {
+function vssh() {
 
 	local deploy="$(declare -f wdeploy)"
 	local install="$(declare -f install_dotfiles)"
@@ -168,14 +171,14 @@ function v_ssh() {
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
-fe() {
+function fe() {
   local file
   file=$(fzf --query="$1" --select-1 --exit-0)
   [ -n "$file" ] && ${EDITOR:-vim} "$file"
 }
 
 # fd - cd to selected directory
-fd() {
+function fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&

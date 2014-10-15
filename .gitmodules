@@ -4,3 +4,6 @@
 [submodule "zsh/fzf"]
 	path = zsh/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "vim/bundle/vundle"]
+	path = vim/bundle/vundle
+	url = https://github.com/gmarik/Vundle.vim

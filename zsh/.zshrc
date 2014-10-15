@@ -1,6 +1,10 @@
 # Assign the DOTDIR path depending on hostname
-local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
+DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
     echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
+
+# Set VIMINIT variable so that we source the proper .vimrc file
+VIMINIT='so ${DOTDIR}/vim/.vimrc'
+
 
 # Env settings
 EDITOR=vim
@@ -11,7 +15,7 @@ LANG=en_US.UTF-8
 ################    Exports     ################
 
 # 256 iTerm Colors
-[[ "$TERM" == "xterm" ]] && export TERM=xterm-256color
+[[ "$TERM" == "xterm" ]] && export TERM=xterm-256color vim 
 
 # export PATHs
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
@@ -22,6 +26,11 @@ export KEYTIMEOUT=1
 # export basic env settings
 export EDITOR TZ LANG
 
+# export DOTDIR so it can be used by vim
+export DOTDIR
+
+# export VIMINIT so that vim loads vundle it correctly
+export VIMINIT
 
 ################    Includes    ################
 
@@ -67,5 +76,10 @@ Bundles
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# apply all the bundles
+
+# install all zsh bundles
 antigen apply
+
+# install all vim bundles
+vim +BundleInstall +qall!
+
