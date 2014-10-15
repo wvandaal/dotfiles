@@ -59,8 +59,8 @@ function install_dotfiles() {
 	export ZDOTDIR
 
     # install all vim bundles
-    echo "Installing vim plugins..."
-    vim +PluginInstall +qall!
+    # echo "Installing vim plugins..."
+    # vim +PluginInstall +qall!
 
 	cd
 }
@@ -98,8 +98,8 @@ function update_dotfiles(){
     git stash pop
 
     # install all vim bundles
-    echo "Installing vim plugins..."
-    vim +PluginInstall +qall!
+    # echo "Installing vim plugins..."
+    # vim +PluginInstall +qall!
 
     # return to previous dir
     cd -
