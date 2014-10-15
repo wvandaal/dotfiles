@@ -46,6 +46,8 @@ function install_dotfiles() {
 
 	local REPO='https://github.com/wvandaal/dotfiles.git'
 	local BASE=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && echo $HOME || echo /tmp)
+    local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
+        echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 	echo "Cloning dotfiles to ${DOTDIR} from ${REPO}..."
 	cd $BASE
@@ -69,6 +71,8 @@ function update_dotfiles(){
 
     local CURRENT=$(git rev-parse --abbrev-ref HEAD)
 	local REPO='https://github.com/wvandaal/dotfiles' 
+    local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
+        echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 	# go to $DOTDIR, stash any git changes, checkout master, and pull
     cd $DOTDIR
@@ -103,10 +107,8 @@ function update_dotfiles(){
 
 
 function wdeploy() {
-    DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
+    local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
         echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
-
-    export DOTDIR
 
 	setup_zsh
 	
