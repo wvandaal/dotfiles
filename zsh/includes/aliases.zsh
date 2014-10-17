@@ -10,6 +10,7 @@ alias vrl="vagrant reload"
 alias ggp="ggpull"
 
 # vim shortcut
+alias vi="vim"
 alias v="vim"
 
 

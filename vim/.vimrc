@@ -40,20 +40,19 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
-
-"  Easymotion Settings  "
-"""""""""""""""""""""""""
-map  // <Plug>(easymotion-sn)
-omap // <Plug>(easymotion-tn)
-let g:EasyMotion_smartcase = 1
-
-
 "  Colorscheme Options  "
 """""""""""""""""""""""""
 syntax enable						" enable complex color schemes
 colorscheme molokai					" set molokai color scheme
 let g:rehash256 = 1					" molokai 256 colors
 
+
+"  Easymotion Settings  "
+"""""""""""""""""""""""""
+" map <Leader> <Plug>(easymotion-prefix)
+map  // <Plug>(easymotion-sn)
+omap // <Plug>(easymotion-tn)
+let g:EasyMotion_smartcase = 1
 
 "   NERDTree Settings   "
 """""""""""""""""""""""""
