@@ -23,7 +23,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'scrooloose/nerdtree'		
 
 " finish installing plugins	
-call vundle#end()      				" required for vundle
+call vundle#end()      				
 filetype plugin indent on 			" required for vundle
 
  
@@ -42,9 +42,10 @@ endif
 
 "  Colorscheme Options  "
 """""""""""""""""""""""""
+let g:rehash256 = 1					" molokai 256 colors
 syntax enable						" enable complex color schemes
 colorscheme molokai					" set molokai color scheme
-let g:rehash256 = 1					" molokai 256 colors
+
 
 
 "  Easymotion Settings  "
@@ -57,10 +58,6 @@ let g:EasyMotion_smartcase = 1
 "   NERDTree Settings   "
 """""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR> 		" map NERDTree to ctrl-n
-
-" open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " allow closing vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif

@@ -56,10 +56,6 @@ function install_dotfiles() {
 	ZDOTDIR=${DOTDIR}/zsh
 	export ZDOTDIR
 
-    # install all vim bundles
-    # echo "Installing vim plugins..."
-    # vim +PluginInstall +qall!
-
 	cd
 }
 
@@ -88,9 +84,7 @@ function update_dotfiles(){
     	export ZDOTDIR
     fi
 
-    # install all vim bundles
-    # echo "Installing vim plugins..."
-    # vim +PluginInstall +qall!
+
 
     # return to previous dir
     cd -
@@ -164,6 +158,8 @@ function vssh() {
 		$(which zsh) -i;"
 
 }
+
+
 
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
