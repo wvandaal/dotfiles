@@ -78,6 +78,7 @@ function update_dotfiles(){
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
     if [[ $(ps -p$$ -ocommand=) =~ zsh ]]; then
+        echo "Reloading from updated .zshrc"
     	source $DOTDIR/zsh/.zshrc
     else
     	ZDOTDIR="${DOTDIR}/zsh/"
