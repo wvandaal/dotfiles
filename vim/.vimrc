@@ -31,6 +31,9 @@ Plugin 'Lokaltog/vim-powerline'
 " highlight hex color-codes in the color they represent
 Plugin 'ap/vim-css-color'
 
+" adds ctrl-p functionality similar to Sublime Text
+Plugin 'kien/ctrlp.vim'
+
 " finish installing plugins	
 call vundle#end()      				
 filetype plugin indent on 			" required for vundle
