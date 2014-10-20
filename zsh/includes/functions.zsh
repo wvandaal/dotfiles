@@ -32,6 +32,12 @@ function setup_zsh() {
 	fi
 }
 
+function install_rsub() {
+    if [[ -f $(which wget) ]]; then
+        #statements
+    else
+}
+
 # installs homebrew
 function install_homebrew() {
 	if [[ -f $(which ruby) ]]; then
@@ -158,6 +164,10 @@ function vssh() {
 		$(which zsh) -i;"
 
 }
+
+# Aliasing for update and install functions
+alias wupdate="update_dotfiles"
+alias winstall="install_dotfiles"
 
 
 # open file in the marked markdown app
