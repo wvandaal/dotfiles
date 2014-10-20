@@ -22,6 +22,9 @@ Plugin 'Lokaltog/vim-easymotion'
 " directory tree traversal
 Plugin 'scrooloose/nerdtree'		
 
+" git command support
+Plugin 'tpope/vim-fugitive'
+
 " finish installing plugins	
 call vundle#end()      				
 filetype plugin indent on 			" required for vundle
@@ -55,7 +58,7 @@ hi StatusLine ctermbg=yellow
 "  Colorscheme Options  "
 """""""""""""""""""""""""
 set t_Co=256						" set vim to 256 colors
-" molokai 256 colors, should come before color scheme declaration
+" molokai 256 colors, should come before colorscheme declaration
 let g:rehash256 = 1					
 syntax enable						" enable complex color schemes
 colorscheme molokai					" set molokai color scheme
