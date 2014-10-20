@@ -32,11 +32,11 @@ function setup_zsh() {
 	fi
 }
 
-function install_rsub() {
-    if [[ -f $(which wget) ]]; then
-        #statements
-    else
-}
+# function install_rsub() {
+#     if [[ -f $(which wget) ]]; then
+#         #statements
+#     else
+# }
 
 # installs homebrew
 function install_homebrew() {
