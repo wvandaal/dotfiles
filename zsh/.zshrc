@@ -80,3 +80,5 @@ bindkey '^[[B' history-substring-search-down
 # install all zsh bundles
 antigen apply
 
+vim +PluginInstal +qall!
+
