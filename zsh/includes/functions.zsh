@@ -63,28 +63,27 @@ function install_dotfiles() {
 # repository
 function update_dotfiles(){
 
-    local CURRENT=$(git rev-parse --abbrev-ref HEAD)
 	local REPO='https://github.com/wvandaal/dotfiles'
 
 	# go to $DOTDIR, stash any git changes, checkout master, and pull
     cd $DOTDIR
+    git stash
     git reset --hard HEAD >/dev/null 2>&1
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull 
-    # git submodule init
-    # git submodule update
+    git submodule init
+    git submodule update
 
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
-    if [[ $(ps -p$$ -ocommand=) =~ zsh ]]; then
+    if [[ $(ps -o comm= -p $$) =~ zsh ]]; then
         echo "Reloading from updated .zshrc"
     	source $DOTDIR/zsh/.zshrc
     else
     	ZDOTDIR="${DOTDIR}/zsh/"
     	export ZDOTDIR
     fi
-
 
 
     # return to previous dir
