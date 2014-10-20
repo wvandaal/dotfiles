@@ -72,8 +72,8 @@ function update_dotfiles(){
     git checkout master
     echo "Updating ${DOTDIR} from ${REPO}"
     git pull 
-    git submodule init
-    git submodule update
+    # git submodule init
+    # git submodule update
 
  	# if shell is zsh, source the dotfiles, else set the ZSHDOTDIR and open zsh 
  	# in interactive mode
@@ -129,7 +129,7 @@ function wssh() {
 	local getzsh="$(declare -f setup_zsh)"
 	local homebrew="$(declare -f install_homebrew)"
 
-	ssh -A -t "$@" \
+	ssh -R 52698:localhost:52698 -A -t "$@" \
 		"${homebrew} ;
 		${getzsh} ;
 		${update} ;
@@ -149,7 +149,7 @@ function vssh() {
 	local homebrew="$(declare -f install_homebrew)"
 
     # login as root user and define all necessary functions for deploying dotfiles
-	vagrant ssh -- -l root -A -t "$@" \
+	vagrant ssh -- -R 52698:localhost:52698 -l root -A -t "$@" \
 		"${homebrew} ;
 		${getzsh} ;
 		${update} ;
@@ -161,7 +161,18 @@ function vssh() {
 }
 
 
-
+# open file in the marked markdown app
+function marked() {
+  if [[ -d $1 ]]; then
+    for f in *.md; do
+      open -a marked.app $f
+    done 
+  elif [[ -f $1 ]]; then
+    open -a marked.app $1
+  else
+    open -a marked.app
+  fi
+}
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
