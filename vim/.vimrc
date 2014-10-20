@@ -25,6 +25,12 @@ Plugin 'scrooloose/nerdtree'
 " git command support
 Plugin 'tpope/vim-fugitive'
 
+" descriptive status line
+Plugin 'Lokaltog/vim-powerline'
+
+" highlight hex color-codes in the color they represent
+Plugin 'ap/vim-css-color'
+
 " finish installing plugins	
 call vundle#end()      				
 filetype plugin indent on 			" required for vundle
@@ -35,6 +41,7 @@ syntax on							" syntax highlighting
 set encoding=utf-8					" char encoding
 set mouse+=a 						" allow input with mouse
 set nu								" line numbers
+set laststatus=2 					" keep status line visible always
 
 " Set 80 col ruler 
 if exists('+colorcolumn')
@@ -44,20 +51,13 @@ else
 endif
 
 
-"  Status Line Options  "
-"""""""""""""""""""""""""
-set laststatus=2
-set statusline=%4*\ %<%F%*              " full path
-set statusline +=%2*%m%*                " modified flag
-set statusline +=%1*%=%5l%*             " current line
-set statusline +=%2*/%L%*               " total lines
-set statusline +=%1*%4v\ %*             " virtual column number
-hi StatusLine ctermbg=yellow
-
-
 "  Colorscheme Options  "
 """""""""""""""""""""""""
-set t_Co=256						" set vim to 256 colors
+" set vim to 256 colors
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256 						
+endif				
+
 " molokai 256 colors, should come before colorscheme declaration
 let g:rehash256 = 1					
 syntax enable						" enable complex color schemes
