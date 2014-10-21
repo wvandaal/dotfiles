@@ -43,6 +43,9 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
+" multiple cursors like those in Sublime Text
+Plugin 'terryma/vim-multiple-cursors'
+
 " finish installing plugins	
 call vundle#end()      				
 filetype plugin indent on 			" required for vundle
@@ -61,6 +64,11 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
+
+
+"   Supertab Options    "
+"""""""""""""""""""""""""
+set completeopt=longest,menuone
 
 
 "  Colorscheme Options  "
