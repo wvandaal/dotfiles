@@ -20,6 +20,9 @@ LANG=en_US.UTF-8
 # export PATHs
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
+# add rbenv to path
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+
 # reduce the <ESC> timeout for use with vim mode
 export KEYTIMEOUT=1
 
