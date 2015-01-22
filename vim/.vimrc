@@ -1,8 +1,9 @@
 set nocompatible					" required for vundle
 filetype off  						" required for vundle
 
-" add vundle to rtp
-let &rtp .= ", " . $DOTDIR . "/vim/bundle/vundle, " . &rtp 
+" add vundle and fzf to rtp
+let &rtp .= ", " . $DOTDIR . "/vim/bundle/vundle, " . &rtp
+let &rtp .= $DOTDIR . "/zsh/fzf" 
 
 " install plugins
 call vundle#begin($DOTDIR . "/vim/bundle")
@@ -25,14 +26,14 @@ Plugin 'scrooloose/nerdtree'
 " git command support
 Plugin 'tpope/vim-fugitive'
 
+" git diff signs in gutter
+Plugin 'airblade/vim-gitgutter'
+
 " descriptive status line
 Plugin 'Lokaltog/vim-powerline'
 
 " highlight hex color-codes in the color they represent
 Plugin 'ap/vim-css-color'
-
-" adds ctrl-p functionality similar to Sublime Text
-Plugin 'kien/ctrlp.vim'
 
 " Allow for tab completion in insert mode
 Plugin 'ervandew/supertab'
@@ -99,6 +100,3 @@ map <C-n> :NERDTreeToggle<CR> 		" map NERDTree to ctrl-n
 " allow closing vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"    Ctrl-P Settings    "
-"""""""""""""""""""""""""
-let g:ctrlp_show_hidden = 1

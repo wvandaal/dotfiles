@@ -3,7 +3,7 @@ DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] &&
     echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
 # Set VIMINIT variable so that we source the proper .vimrc file
-VIMINIT='so $DOTDIR/vim/.vimrc'
+VIMINIT='so $DOTDIR/vim/.vimrc | let $MYVIMRC = $DOTDIR . "vim/.vimrc"'
 
 
 # Env settings
