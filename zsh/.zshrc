@@ -24,7 +24,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 
 if ! [[ -f $(which ant) ]]; then
-     export PATH="/usr/local:/usr/local/ant-1.9.2/bin"
+     export PATH="/usr/local:/usr/local/ant-1.9.2/bin:$PATH"
 fi
 
 # reduce the <ESC> timeout for use with vim mode
