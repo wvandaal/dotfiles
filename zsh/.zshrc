@@ -23,6 +23,10 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 # add rbenv to path
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 
+if ! [[ -f $(which ant) ]]; then
+     export PATH="/usr/local:/usr/local/ant-1.9.2/bin"
+fi
+
 # reduce the <ESC> timeout for use with vim mode
 export KEYTIMEOUT=1
 
