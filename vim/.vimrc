@@ -53,11 +53,14 @@ filetype plugin indent on 			" required for vundle
 
  
 inoremap ii <ESC>					" map ii to ESC
-syntax on							" syntax highlighting
+nnoremap <CR> :nohlsearch<CR><CR> 			" toggle off search highlighting with 'Enter' 
+
+syntax on						" syntax highlighting
 set encoding=utf-8					" char encoding
 set mouse+=a 						" allow input with mouse
-set nu								" line numbers
+set nu							" line numbers
 set laststatus=2 					" keep status line visible always
+set hlsearch 						" turn on search highlighting
 
 " Set 80 col ruler 
 if exists('+colorcolumn')
@@ -99,4 +102,3 @@ map <C-n> :NERDTreeToggle<CR> 		" map NERDTree to ctrl-n
 
 " allow closing vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
