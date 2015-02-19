@@ -169,6 +169,15 @@ function vssh() {
 alias wupdate="update_dotfiles"
 alias winstall="install_dotfiles"
 
+# search all git branches in given repo for a substring arg and checkout the 
+# resulting branch
+function gfb() {
+  git branch -a | 
+    grep $1 | 
+    awk '{print $1}' | 
+    sed 's/remotes\/origin\///' | 
+    xargs -n1 git checkout
+}
 
 # open file in the marked markdown app
 function marked() {
