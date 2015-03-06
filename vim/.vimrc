@@ -69,6 +69,22 @@ set shiftwidth=4
 set expandtab
 
 
+"   Splitting Options   "
+"""""""""""""""""""""""""
+set winheight=30
+set winminheight=5
+
+" map + and - to pane resizing
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" pane navigation shortcuts
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+
 " Set 80 col ruler 
 if exists('+colorcolumn')
   set colorcolumn=80
