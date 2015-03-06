@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-export EMAIL_REPO=/Path/to/lvtech/email
+export EMAIL_REPO=$HOME/git/email
 source $EMAIL_REPO/bash
 
 function email {
