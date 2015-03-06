@@ -62,6 +62,13 @@ set nu							" line numbers
 set laststatus=2 					" keep status line visible always
 set hlsearch 						" turn on search highlighting
 
+" auto-indent braces and set tab width to 4 spaces
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+
 " Set 80 col ruler 
 if exists('+colorcolumn')
   set colorcolumn=80

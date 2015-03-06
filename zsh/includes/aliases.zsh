@@ -16,3 +16,4 @@ alias v="vi"
 
 
 alias re="ruby -e"
+alias cl="clear"

@@ -36,7 +36,7 @@ export EDITOR TZ LANG
 # export DOTDIR so it can be used by vim
 export DOTDIR
 
-# export VIMINIT so that vim loads vundle it correctly
+# export VIMINIT so that vim loads vundle correctly
 export VIMINIT
 
 ################    Includes    ################
