@@ -32,6 +32,35 @@ function setup_zsh() {
 	fi
 }
 
+function setup_git() {
+	# if git is not installed
+	if ! [[ -f $(which git) ]]; then
+	
+		echo "Git not found"
+		echo "Attempting to install Git..."
+		
+		# if apt-get exists, use to install git
+		if [[ -f $(which apt-get) ]]; then
+			sudo apt-get install git
+
+		elif [[ -f $(which yum) ]]; then
+			sudo yum install git
+
+		# if homebrew exists, use it to install git
+		elif [[ -f $(which brew) ]]; then
+			sudo brew install git
+		
+		# if homebrew is not installed and the machine uses OSX, 
+		# install homebrew and then install git
+		elif [[ $(uname) == Darwin ]]; then
+			install_homebrew
+			sudo brew install git
+		else
+			echo "Error: apt-get, yum, or homebrew required to install Git"
+		fi
+	fi
+}
+
 # function install_rsub() {
 #     if [[ -f $(which wget) ]]; then
 #         #statements
@@ -102,6 +131,7 @@ function wdeploy() {
     local DOTDIR=$([[ $(hostname -f) =~ ^wvandaalen(\.local)?$ ]] && 
         echo "$HOME/.wcvd-dotfiles" || echo "/tmp/.wcvd-dotfiles")
 
+	setup_git
 	setup_zsh
 	
 	# if the dotfiles directory exists, update from the remote
@@ -131,11 +161,13 @@ function wssh() {
 	local deploy="$(declare -f wdeploy)"
 	local install="$(declare -f install_dotfiles)"
 	local update="$(declare -f update_dotfiles)"
+	local getgit="$(declare -f setup_git)"
 	local getzsh="$(declare -f setup_zsh)"
 	local homebrew="$(declare -f install_homebrew)"
 
 	ssh -R 52698:localhost:52698 -A -t "$@" \
 		"${homebrew} ;
+		${getgit} ;
 		${getzsh} ;
 		${update} ;
 		${install} ;
@@ -150,12 +182,14 @@ function vssh() {
 	local deploy="$(declare -f wdeploy)"
 	local install="$(declare -f install_dotfiles)"
 	local update="$(declare -f update_dotfiles)"
+	local getgit="$(declare -f setup_git)"
 	local getzsh="$(declare -f setup_zsh)"
 	local homebrew="$(declare -f install_homebrew)"
 
     # login as root user and define all necessary functions for deploying dotfiles
 	vagrant ssh -- -R 52698:localhost:52698 -l root -A -t "$@" \
 		"${homebrew} ;
+		${getgit} ;
 		${getzsh} ;
 		${update} ;
 		${install} ;
